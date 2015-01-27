@@ -1,0 +1,12 @@
+{
+  "node": true,
+  "undef": true,
+  "unused": true,
+  "predef": ["-Promise"],
+  "latedef": "nofunc",
+  "globals": {
+    "module": false,
+    "require": false,
+    "define": false
+  }
+}
