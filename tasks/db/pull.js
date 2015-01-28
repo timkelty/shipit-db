@@ -10,29 +10,27 @@ module.exports = function (gruntOrShipit) {
   registerTask(gruntOrShipit, 'db-pull', task);
 
   function task() {
-    var shipit = getShipit(gruntOrShipit);
-    var helper = db(shipit);
-    shipit = helper.init();
-
-    var remoteDumpFilePath = path.join(shipit.currentPath, helper.dumpFile('remote'));
-    var localDumpFilePath = path.join(shipit.config.workspace, helper.dumpFile('remote'));
-
     // dbConfig[from].username = dbConfig[from].username || dbConfig[from].user;
     // dbConfig[to].username = dbConfig[to].username || dbConfig[to].user;
 
-    return helper.dump('remote')
-    .then(download())
-    // .then(helper.clean(remoteDumpFilePath, 'remote'))
-    .then(helper.load(localDumpFilePath, 'local'))
-    // .then(helper.clean(localDumpFilePath, 'local'))
-    ;
+    var shipit = getShipit(gruntOrShipit);
+    var helper = db(shipit);
+    shipit = helper.init();
+    var remoteDumpFilePath = path.join(shipit.sharedPath || shipit.currentPath, helper.dumpFile('remote'));
+    var localDumpFilePath = path.join(shipit.config.workspace, helper.dumpFile('remote'));
 
-    function download() {
+    var download = function download() {
       return Promise.promisify(mkdirp)(path.dirname(localDumpFilePath)).then(function() {
         return shipit.remoteCopy(remoteDumpFilePath, localDumpFilePath, {
           direction: 'remoteToLocal'
         });
       });
-    }
+    };
+
+    return helper.dump('remote', remoteDumpFilePath)
+    .then(download)
+    .then(helper.clean(remoteDumpFilePath, 'remote'))
+    .then(helper.load(localDumpFilePath, 'local'))
+    .then(helper.clean(localDumpFilePath, 'local'));
   }
 };
