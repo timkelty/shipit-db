@@ -14,18 +14,22 @@ module.exports = function (gruntOrShipit) {
     var helper = db(shipit);
     shipit = helper.init();
 
+    var remoteDumpFilePath = path.join(shipit.currentPath, helper.dumpFile('remote'));
+    var localDumpFilePath = path.join(shipit.config.workspace, helper.dumpFile('remote'));
+
     // dbConfig[from].username = dbConfig[from].username || dbConfig[from].user;
     // dbConfig[to].username = dbConfig[to].username || dbConfig[to].user;
 
     return helper.dump('remote')
-    .then(helper.download())
-    .then(helper.clean('remote'))
-    .then(helper.load(shipit.db.localDumpFilePath), 'local')
-    .then(helper.clean('local'));
+    .then(download())
+    // .then(helper.clean(remoteDumpFilePath, 'remote'))
+    .then(helper.load(localDumpFilePath, 'local'))
+    // .then(helper.clean(localDumpFilePath, 'local'))
+    ;
 
     function download() {
-      return Promise.promisify(mkdirp)(path.dirname(shipit.db.localDumpFilePath)).then(function() {
-        return shipit.remoteCopy(shipit.db.remoteDumpFilePath, shipit.db.localDumpFilePath, {
+      return Promise.promisify(mkdirp)(path.dirname(localDumpFilePath)).then(function() {
+        return shipit.remoteCopy(remoteDumpFilePath, localDumpFilePath, {
           direction: 'remoteToLocal'
         });
       });
