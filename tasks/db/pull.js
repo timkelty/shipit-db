@@ -16,8 +16,10 @@ module.exports = function (gruntOrShipit) {
     var shipit = getShipit(gruntOrShipit);
     var helper = db(shipit);
     shipit = helper.init();
-    var remoteDumpFilePath = path.join(shipit.sharedPath || shipit.currentPath, helper.dumpFile('remote'));
-    var localDumpFilePath = path.join(shipit.config.workspace, helper.dumpFile('remote'));
+
+    var dumpFile = helper.dumpFile('remote');
+    var remoteDumpFilePath = path.join(shipit.sharedPath || shipit.currentPath, dumpFile);
+    var localDumpFilePath = path.join(shipit.config.workspace, dumpFile);
 
     var download = function download() {
       return Promise.promisify(mkdirp)(path.dirname(localDumpFilePath)).then(function() {
@@ -29,8 +31,8 @@ module.exports = function (gruntOrShipit) {
 
     return helper.dump('remote', remoteDumpFilePath)
     .then(download)
-    .then(helper.clean(remoteDumpFilePath, 'remote'))
+    .then(helper.clean(remoteDumpFilePath, 'remote', shipit.config.db.cleanRemote))
     .then(helper.load(localDumpFilePath, 'local'))
-    .then(helper.clean(localDumpFilePath, 'local'));
+    .then(helper.clean(localDumpFilePath, 'local', shipit.config.db.cleanLocal));
   }
 };

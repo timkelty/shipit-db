@@ -24,8 +24,8 @@ module.exports = function (gruntOrShipit) {
 
     return helper.dump('local', localDumpFilePath)
     .then(upload)
-    .then(helper.clean(localDumpFilePath, 'local'))
+    .then(helper.clean(localDumpFilePath, 'local', shipit.config.db.cleanLocal))
     .then(helper.load(remoteDumpFilePath, 'remote'))
-    .then(helper.clean(remoteDumpFilePath, 'remote'));
+    .then(helper.clean(remoteDumpFilePath, 'remote', shipit.config.db.cleanRemote));
   }
 };
