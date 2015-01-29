@@ -40,7 +40,6 @@ module.exports = function (gruntOrShipit) {
     })
     .then(function() {
       helper.clean(localDumpFilePath, 'local', shipit.config.db.cleanLocal);
-    })
-    ;
+    });
   }
 };
