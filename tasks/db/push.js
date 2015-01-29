@@ -17,15 +17,22 @@ module.exports = function (gruntOrShipit) {
     var localDumpFilePath = path.join(shipit.config.workspace, helper.dumpFile('local'));
 
     var upload = function upload() {
-      return shipit.remote('mkdir -p ' + path.dirname(remoteDumpFilePath)).then(function() {
-        return shipit.remoteCopy(localDumpFilePath, remoteDumpFilePath);
-      });
+      return shipit.remoteCopy(localDumpFilePath, remoteDumpFilePath);
     };
 
-    return helper.dump('local', localDumpFilePath)
+    return helper.createDirs()
+    .then(function() {
+      return helper.dump('local', localDumpFilePath);
+    })
     .then(upload)
-    .then(helper.clean(localDumpFilePath, 'local', shipit.config.db.cleanLocal))
-    .then(helper.load(remoteDumpFilePath, 'remote'))
-    .then(helper.clean(remoteDumpFilePath, 'remote', shipit.config.db.cleanRemote));
+    .then(function() {
+      return helper.clean(localDumpFilePath, 'local', shipit.config.db.cleanLocal);
+    })
+    .then(function() {
+      return helper.load(remoteDumpFilePath, 'remote');
+    })
+    .then(function() {
+      return helper.clean(remoteDumpFilePath, 'remote', shipit.config.db.cleanRemote);
+    });
   }
 };
