@@ -7,7 +7,7 @@ var mkdirp = require('mkdirp');
 var db = require('../../lib/db');
 
 module.exports = function (gruntOrShipit) {
-  registerTask(gruntOrShipit, 'db-pull', task);
+  registerTask(gruntOrShipit, 'db:pull', task);
 
   function task() {
     // dbConfig[from].username = dbConfig[from].username || dbConfig[from].user;

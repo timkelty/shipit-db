@@ -7,7 +7,7 @@ var mkdirp = require('mkdirp');
 var db = require('../../lib/db');
 
 module.exports = function (gruntOrShipit) {
-  registerTask(gruntOrShipit, 'db-push', task);
+  registerTask(gruntOrShipit, 'db:push', task);
 
   function task() {
     var shipit = getShipit(gruntOrShipit);
