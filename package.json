@@ -1,6 +1,6 @@
 {
   "name": "shipit-db",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Database syncing tasks for Shipit.",
   "main": "index.js",
   "directories": {
