@@ -31,7 +31,6 @@
     "chai": "^1.10.0",
     "mocha": "^2.1.0",
     "rewire": "^2.1.4",
-    "shipit-cli": "^1.1.0",
     "sinon": "^1.12.2",
     "sinon-as-promised": "^2.0.3",
     "sinon-chai": "^2.6.0"
@@ -43,6 +42,8 @@
     "mkdirp": "^0.5.0",
     "moment": "^2.9.0",
     "path2": "^0.1.0",
+    "shipit": "^0.1.16",
+    "shipit-cli": "^1.1.0",
     "sprintf-js": "^1.0.2"
   },
   "readmeFile": "README.md"
