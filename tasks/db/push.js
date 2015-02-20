@@ -1,16 +1,12 @@
-/* jshint unused:false */
-var registerTask = require('../../lib/register-task');
-var getShipit = require('../../lib/get-shipit');
+var utils = require('shipit-utils');
 var path = require('path');
-var Promise = require('bluebird');
-var mkdirp = require('mkdirp');
 var db = require('../../lib/db');
 
 module.exports = function (gruntOrShipit) {
-  registerTask(gruntOrShipit, 'db:push', task);
+  utils.registerTask(gruntOrShipit, 'db:push', task);
 
   function task() {
-    var shipit = getShipit(gruntOrShipit);
+    var shipit = utils.getShipit(gruntOrShipit);
     var helper = db(shipit);
     shipit = helper.init();
     var remoteDumpFilePath = path.join(shipit.sharedPath || shipit.currentPath, helper.dumpFile('local'));

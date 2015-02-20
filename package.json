@@ -44,6 +44,7 @@
     "path2": "^0.1.0",
     "shipit": "^0.1.16",
     "shipit-cli": "^1.1.0",
+    "shipit-utils": "^1.0.2",
     "sprintf-js": "^1.0.2"
   },
   "readmeFile": "README.md"

@@ -1,13 +1,10 @@
-/* jshint unused:false */
-var registerTask = require('../../lib/register-task');
+var utils = require('shipit-utils');
 var getShipit = require('../../lib/get-shipit');
 var path = require('path');
-var Promise = require('bluebird');
-var mkdirp = require('mkdirp');
 var db = require('../../lib/db');
 
 module.exports = function (gruntOrShipit) {
-  registerTask(gruntOrShipit, 'db:pull', task);
+  utils.registerTask(gruntOrShipit, 'db:pull', task);
 
   function task() {
     // dbConfig[from].username = dbConfig[from].username || dbConfig[from].user;
