@@ -1,5 +1,4 @@
 var utils = require('shipit-utils');
-var getShipit = require('../../lib/get-shipit');
 var path = require('path');
 var db = require('../../lib/db');
 
@@ -10,7 +9,7 @@ module.exports = function (gruntOrShipit) {
     // dbConfig[from].username = dbConfig[from].username || dbConfig[from].user;
     // dbConfig[to].username = dbConfig[to].username || dbConfig[to].user;
 
-    var shipit = getShipit(gruntOrShipit);
+    var shipit = utils.getShipit(gruntOrShipit);
     var helper = db(shipit);
     shipit = helper.init();
 
