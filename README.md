@@ -23,7 +23,7 @@ npm install shipit-db
 
 ```js
 module.exports = function (shipit) {
-  require('shipit-shared')(shipit);
+  require('shipit-db')(shipit);
 
   shipit.initConfig({
     default: {
