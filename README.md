@@ -41,12 +41,14 @@ module.exports = function (shipit) {
     },
     staging: {
       servers: 'user@myserver.com',
-      remote: {
-        host     : '127.0.0.1',
-        adapter  : 'mysql',
-        username : 'myusername',
-        password : '123password',
-        database : 'mysite_staging',
+      db: {
+        remote: {
+          host     : '127.0.0.1',
+          adapter  : 'mysql',
+          username : 'myusername',
+          password : '123password',
+          database : 'mysite_staging',
+        }
       }
     }
   });
