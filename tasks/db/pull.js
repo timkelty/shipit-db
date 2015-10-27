@@ -3,16 +3,11 @@ var path = require('path');
 var db = require('../../lib/db');
 
 module.exports = function (gruntOrShipit) {
-  utils.registerTask(gruntOrShipit, 'db:pull', task);
+  utils.registerTask(gruntOrShipit, 'db:pull:task', task);
 
   function task() {
-    // dbConfig[from].username = dbConfig[from].username || dbConfig[from].user;
-    // dbConfig[to].username = dbConfig[to].username || dbConfig[to].user;
-
     var shipit = utils.getShipit(gruntOrShipit);
     var helper = db(shipit);
-    shipit = helper.init();
-
     var dumpFile = helper.dumpFile('remote');
     var remoteDumpFilePath = path.join(shipit.sharedPath || shipit.currentPath, dumpFile);
     var localDumpFilePath = path.join(shipit.config.workspace, dumpFile);
@@ -35,7 +30,7 @@ module.exports = function (gruntOrShipit) {
       return helper.load(localDumpFilePath, 'local');
     })
     .then(function() {
-      helper.clean(localDumpFilePath, 'local', shipit.config.db.cleanLocal);
+      return helper.clean(localDumpFilePath, 'local', shipit.config.db.cleanLocal);
     });
   }
 };

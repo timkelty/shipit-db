@@ -3,12 +3,11 @@ var path = require('path');
 var db = require('../../lib/db');
 
 module.exports = function (gruntOrShipit) {
-  utils.registerTask(gruntOrShipit, 'db:push', task);
+  utils.registerTask(gruntOrShipit, 'db:push:task', task);
 
   function task() {
     var shipit = utils.getShipit(gruntOrShipit);
     var helper = db(shipit);
-    shipit = helper.init();
     var remoteDumpFilePath = path.join(shipit.sharedPath || shipit.currentPath, helper.dumpFile('local'));
     var localDumpFilePath = path.join(shipit.config.workspace, helper.dumpFile('local'));
 
