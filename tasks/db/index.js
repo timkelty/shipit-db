@@ -4,7 +4,7 @@ var utils = require('shipit-utils');
  * Database tasks.
  */
 
-module.exports = function (gruntOrShipit) {
+module.exports = function(gruntOrShipit) {
   require('./init')(gruntOrShipit);
   require('./pull')(gruntOrShipit);
   require('./push')(gruntOrShipit);
