@@ -7,12 +7,9 @@ var _ = require('lodash');
  * - Emit deploy event.
  */
 
-module.exports = function (gruntOrShipit) {
-  utils.registerTask(gruntOrShipit, 'db:init', task);
-
-  function task() {
+module.exports = function(gruntOrShipit) {
+  var task = function task() {
     var shipit = utils.getShipit(gruntOrShipit);
-
     shipit.currentPath = path.join(shipit.config.deployTo, 'current');
     shipit.sharedPath = path.join(shipit.config.deployTo, 'shared');
     shipit.config.db = _.defaults(shipit.config.db || {}, {
@@ -21,12 +18,19 @@ module.exports = function (gruntOrShipit) {
       cleanRemote: true,
       ignoreTables: [],
       local: {},
-      remote: {}
+      remote: {},
+      shell: {},
     });
-    shipit.localDumpDir = path.join(shipit.config.workspace, shipit.config.db.dumpDir);
-    shipit.remoteDumpDir = path.join(shipit.sharedPath || shipit.currentPath, shipit.config.db.dumpDir);
+
+    shipit.db = {
+      localDumpDir: path.join(shipit.config.workspace, shipit.config.db.dumpDir),
+      remoteDumpDir: path.join(shipit.sharedPath || shipit.currentPath, shipit.config.db.dumpDir),
+    };
+
     shipit.emit('db');
 
     return shipit;
-  }
+  };
+
+  utils.registerTask(gruntOrShipit, 'db:init', task);
 };

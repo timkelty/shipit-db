@@ -2,13 +2,10 @@ var utils = require('shipit-utils');
 var path = require('path');
 var db = require('../../lib/db');
 
-module.exports = function (gruntOrShipit) {
-  utils.registerTask(gruntOrShipit, 'db:pull:task', task);
-
-  function task() {
-    var shipit = utils.getShipit(gruntOrShipit);
-    var helper = db(shipit);
-    var dumpFile = helper.dumpFile('remote');
+module.exports = function(gruntOrShipit) {
+  var task = function task() {
+    var shipit = db(utils.getShipit(gruntOrShipit));
+    var dumpFile = shipit.db.dumpFile('remote');
     var remoteDumpFilePath = path.join(shipit.sharedPath || shipit.currentPath, dumpFile);
     var localDumpFilePath = path.join(shipit.config.workspace, dumpFile);
 
@@ -18,19 +15,21 @@ module.exports = function (gruntOrShipit) {
       });
     };
 
-    return helper.createDirs()
+    return shipit.db.createDirs()
     .then(function() {
-      return helper.dump('remote', remoteDumpFilePath);
+      return shipit.db.dump('remote', remoteDumpFilePath);
     })
     .then(download)
     .then(function() {
-      return helper.clean(remoteDumpFilePath, 'remote', shipit.config.db.cleanRemote);
+      return shipit.db.clean('remote', remoteDumpFilePath, shipit.config.db.cleanRemote);
     })
     .then(function() {
-      return helper.load(localDumpFilePath, 'local');
+      return shipit.db.load('local', localDumpFilePath);
     })
     .then(function() {
-      return helper.clean(localDumpFilePath, 'local', shipit.config.db.cleanLocal);
+      return shipit.db.clean('local', localDumpFilePath, shipit.config.db.cleanLocal);
     });
-  }
+  };
+
+  utils.registerTask(gruntOrShipit, 'db:pull:task', task);
 };
