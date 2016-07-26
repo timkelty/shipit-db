@@ -67,6 +67,12 @@ Dump your remote database, download and import to local:
 shipit staging db:pull
 ```
 
+Dump your remote database, download and import to a local file:
+
+```
+shipit staging db:dumpfetch
+```
+
 ## Options (`shipit.config.db`)
 
 ### `db.ignoreTables`

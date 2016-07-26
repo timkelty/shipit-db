@@ -8,6 +8,7 @@ module.exports = function(gruntOrShipit) {
   require('./init')(gruntOrShipit);
   require('./pull')(gruntOrShipit);
   require('./push')(gruntOrShipit);
+  require('./dumpfetch')(gruntOrShipit);
   require('./finish')(gruntOrShipit);
 
   utils.registerTask(gruntOrShipit, 'db:pull', [
@@ -19,6 +20,12 @@ module.exports = function(gruntOrShipit) {
   utils.registerTask(gruntOrShipit, 'db:push', [
     'db:init',
     'db:push:task',
+    'db:finish',
+  ]);
+
+  utils.registerTask(gruntOrShipit, 'db:dumpfetch', [
+    'db:init',
+    'db:dumpfetch:task',
     'db:finish',
   ]);
 };
