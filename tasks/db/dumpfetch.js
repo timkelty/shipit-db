@@ -25,5 +25,5 @@ module.exports = function(gruntOrShipit) {
     });
   };
 
-  utils.registerTask(gruntOrShipit, 'db:dump:task', task);
+  utils.registerTask(gruntOrShipit, 'db:dumpfetch:task', task);
 };
