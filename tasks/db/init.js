@@ -1,6 +1,7 @@
 var utils = require('shipit-utils');
 var path = require('path2/posix');
 var _ = require('lodash');
+var chalk = require('chalk');
 
 /**
  * Init task.
@@ -10,6 +11,10 @@ var _ = require('lodash');
 module.exports = function(gruntOrShipit) {
   var task = function task() {
     var shipit = utils.getShipit(gruntOrShipit);
+    if (!shipit.config.deployTo || typeof shipit.config.deployTo !== "string") {
+      shipit.log(chalk.red('Cannot initialize (db:init), as deployTo isn\'t specified in the config!'));
+      return;
+    }
     shipit.currentPath = path.join(shipit.config.deployTo, 'current');
     shipit.sharedPath = path.join(shipit.config.deployTo, 'shared');
     shipit.config.db = _.defaults(shipit.config.db || {}, {
