@@ -8,7 +8,6 @@ module.exports = function(gruntOrShipit) {
   require('./init')(gruntOrShipit);
   require('./pull')(gruntOrShipit);
   require('./push')(gruntOrShipit);
-  require('./dump')(gruntOrShipit);
   require('./finish')(gruntOrShipit);
 
   utils.registerTask(gruntOrShipit, 'db:pull', [
