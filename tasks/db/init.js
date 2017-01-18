@@ -9,27 +9,44 @@ var chalk = require('chalk');
  */
 
 module.exports = function(gruntOrShipit) {
+
   var task = function task() {
+
     var shipit = utils.getShipit(gruntOrShipit);
+
     if (!shipit.config.deployTo || typeof shipit.config.deployTo !== "string") {
       shipit.log(chalk.red('Cannot initialize (db:init), as deployTo isn\'t specified in the config!'));
       return;
     }
+
     shipit.currentPath = path.join(shipit.config.deployTo, 'current');
     shipit.sharedPath = path.join(shipit.config.deployTo, 'shared');
+
     shipit.config.db = _.defaults(shipit.config.db || {}, {
-      dumpDir: 'db',
-      cleanLocal: true,
-      cleanRemote: true,
+      dumpDir: 'database',
       ignoreTables: [],
       local: {},
       remote: {},
       shell: {},
     });
 
+    //
+    // The different paths we're backing up to
+    //
     shipit.db = {
-      localDumpDir: path.join(shipit.config.workspace, shipit.config.db.dumpDir),
-      remoteDumpDir: path.join(shipit.sharedPath || shipit.currentPath, shipit.config.db.dumpDir),
+
+      // Our local folder holding a remote DB
+      localRemoteDumpDir: path.join(shipit.config.db.dumpDir, shipit.environment),
+
+      // Our local folder holding our local DB
+      localDumpDir: path.join(shipit.config.db.dumpDir, "local"),
+
+      // A remote folder holding our remote DB
+      remoteDumpDir: path.join(shipit.sharedPath || shipit.currentPath, shipit.config.db.dumpDir, shipit.environment),
+
+      // A remote folder holdin gour local DB
+      remoteLocalDumpDir: path.join(shipit.sharedPath || shipit.currentPath, shipit.config.db.dumpDir, "local"),
+
     };
 
     shipit.emit('db');
@@ -38,4 +55,5 @@ module.exports = function(gruntOrShipit) {
   };
 
   utils.registerTask(gruntOrShipit, 'db:init', task);
+
 };
