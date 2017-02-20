@@ -1,39 +1,65 @@
 {
-  "name": "shipit-db",
-  "version": "1.8.1",
-  "description": "Database syncing tasks for Shipit.",
-  "main": "index.js",
-  "directories": {
-    "test": "test"
-  },
-  "scripts": {
-    "test": "mocha --recursive"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/timkelty/shipit-db.git"
-  },
-  "keywords": [
-    "shipit",
-    "database",
-    "task"
+  "_args": [
+    [
+      {
+        "hosted": {
+          "directUrl": "https://raw.githubusercontent.com/bryantAXS/shipit-db/master/package.json",
+          "gitUrl": "git://github.com/bryantAXS/shipit-db.git",
+          "httpsUrl": "git+https://github.com/bryantAXS/shipit-db.git",
+          "shortcut": "github:bryantAXS/shipit-db",
+          "ssh": "git@github.com:bryantAXS/shipit-db.git",
+          "sshUrl": "git+ssh://git@github.com/bryantAXS/shipit-db.git",
+          "type": "github"
+        },
+        "name": null,
+        "raw": "git+ssh://git@github.com/bryantAXS/shipit-db.git",
+        "rawSpec": "git+ssh://git@github.com/bryantAXS/shipit-db.git",
+        "scope": null,
+        "spec": "git+ssh://git@github.com/bryantAXS/shipit-db.git",
+        "type": "hosted"
+      },
+      "/Users/bryanthughes/Sites/authentic-ff/tools/jumpstart"
+    ]
   ],
-  "author": {
-    "name": "Tim Kelty",
-    "email": "timkelty@gmail.com"
+  "_from": "git+ssh://git@github.com/bryantAXS/shipit-db.git",
+  "_id": "shipit-db@1.8.1",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/shipit-db",
+  "_phantomChildren": {
+    "escape-string-regexp": "1.0.5"
   },
-  "license": "MIT",
+  "_requested": {
+    "hosted": {
+      "directUrl": "https://raw.githubusercontent.com/bryantAXS/shipit-db/master/package.json",
+      "gitUrl": "git://github.com/bryantAXS/shipit-db.git",
+      "httpsUrl": "git+https://github.com/bryantAXS/shipit-db.git",
+      "shortcut": "github:bryantAXS/shipit-db",
+      "ssh": "git@github.com:bryantAXS/shipit-db.git",
+      "sshUrl": "git+ssh://git@github.com/bryantAXS/shipit-db.git",
+      "type": "github"
+    },
+    "name": null,
+    "raw": "git+ssh://git@github.com/bryantAXS/shipit-db.git",
+    "rawSpec": "git+ssh://git@github.com/bryantAXS/shipit-db.git",
+    "scope": null,
+    "spec": "git+ssh://git@github.com/bryantAXS/shipit-db.git",
+    "type": "hosted"
+  },
+  "_requiredBy": [
+    "#DEV:/"
+  ],
+  "_resolved": "git+ssh://git@github.com/bryantAXS/shipit-db.git#2055f07ebf44c9db727a8e56bd6dc4fafe7c4c85",
+  "_shasum": "f959927f0a2af9f4439abee1e80dd79568afcc25",
+  "_shrinkwrap": null,
+  "_spec": "git+ssh://git@github.com/bryantAXS/shipit-db.git",
+  "_where": "/Users/bryanthughes/Sites/authentic-ff/tools/jumpstart",
+  "author": {
+    "email": "timkelty@gmail.com",
+    "name": "Tim Kelty"
+  },
   "bugs": {
     "url": "https://github.com/timkelty/shipit-db/issues"
-  },
-  "homepage": "https://github.com/timkelty/shipit-db",
-  "devDependencies": {
-    "chai": "^1.10.0",
-    "mocha": "^2.1.0",
-    "rewire": "^2.1.4",
-    "sinon": "^1.12.2",
-    "sinon-as-promised": "^2.0.3",
-    "sinon-chai": "^2.6.0"
   },
   "dependencies": {
     "bluebird": "^2.9.1",
@@ -47,5 +73,38 @@
     "shipit-utils": "^1.0.2",
     "sprintf-js": "^1.0.2"
   },
-  "readmeFile": "README.md"
+  "description": "Database syncing tasks for Shipit.",
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "mocha": "^2.1.0",
+    "rewire": "^2.1.4",
+    "sinon": "^1.12.2",
+    "sinon-as-promised": "^2.0.3",
+    "sinon-chai": "^2.6.0"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "gitHead": "2055f07ebf44c9db727a8e56bd6dc4fafe7c4c85",
+  "homepage": "https://github.com/timkelty/shipit-db",
+  "keywords": [
+    "shipit",
+    "database",
+    "task"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "shipit-db",
+  "optionalDependencies": {},
+  "readme": "# shipit-db\n\nA set of database tasks for [Shipit](https://github.com/shipitjs/shipit).\n\n**Features:**\n\n- Works via [shipit-cli](https://github.com/shipitjs/shipit) and [grunt-shipit](https://github.com/shipitjs/grunt-shipit)\n- Optionally ignore specified tables\n\n**Roadmap**\n\n- DB Backup tasks\n\n## Install\n\n```\nnpm install shipit-db\n```\n\n## Usage\n\n### Example `shipitfile.js`\n\n```js\nmodule.exports = function (shipit) {\n  require('shipit-db')(shipit);\n\n  shipit.initConfig({\n    default: {\n      db: {\n        ignoreTables: ['some_table'],\n        local: {\n          host     : 'localhost',\n          adapter  : 'mysql',\n          username : 'root',\n          password : 'root',\n          socket   : '/Applications/MAMP/tmp/mysql/mysql.sock',\n          database : 'mysite_local',\n        },\n      }\n    },\n    staging: {\n      servers: 'user@myserver.com',\n      db: {\n        remote: {\n          host     : '127.0.0.1',\n          adapter  : 'mysql',\n          username : 'myusername',\n          password : '123password',\n          database : 'mysite_staging',\n        }\n      }\n    }\n  });\n};\n```\n\nDump your local database, upload and import to remote:\n\n```\nshipit staging db:push\n```\n\nDump your remote database, download and import to local:\n\n```\nshipit staging db:pull\n```\n\nDump your remote database, download and import to a local file:\n\n```\nshipit staging db:dumpfetch\n```\n\n## Options (`shipit.config.db`)\n\n### `db.ignoreTables`\n\nType: `Array`\n\nAn array of database tables to ignore.\n\n### `db.local` \\ `db.remote`\n\nType: `Object`\n\nAn object of database credentials.\n\n## License\n\nMIT\n",
+  "readmeFile": "README.md",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timkelty/shipit-db.git"
+  },
+  "scripts": {
+    "test": "mocha --recursive"
+  },
+  "version": "1.8.1"
 }
